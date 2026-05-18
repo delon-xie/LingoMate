@@ -3,7 +3,7 @@ import { ArrowLeft, Settings, Send, Volume2 } from 'lucide-react';
 import { ChatBubble } from '../components/chat/ChatBubble';
 import { RecordButton } from '../components/chat/RecordButton';
 import type { Message, Scenario } from '../types';
-import { sendMessage, teachWord, onAiResponseChunk, playAudio } from '../services/api';
+import { sendMessage, teachWord, onAiResponseChunk, playAudio, getSettings, updateSettings } from '../services/api';
 
 interface ChatPageProps {
   scenario: Scenario;
@@ -71,9 +71,47 @@ export const ChatPage: React.FC<ChatPageProps> = ({
   });
   const [inputText, setInputText] = useState('');
   const [isStreaming, setIsStreaming] = useState(false);
-  const [autoPlayTTS, setAutoPlayTTS] = useState(true); // 自动播放开关
+  const [autoPlayTTS, setAutoPlayTTS] = useState(true);
+  const [loadingSettings, setLoadingSettings] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const lastAssistantMessageRef = useRef<string>(''); // 跟踪最后一条 AI 消息
+  const lastAssistantMessageRef = useRef<string>('');
+
+  // 加载设置
+  useEffect(() => {
+    loadSettings();
+  }, []);
+
+  const loadSettings = async () => {
+    try {
+      const result = await getSettings();
+      setAutoPlayTTS(result.settings.auto_play_tts ?? true);
+    } catch (error) {
+      console.error('Failed to load settings:', error);
+    } finally {
+      setLoadingSettings(false);
+    }
+  };
+
+  // 保存自动播放设置
+  const toggleAutoPlay = async () => {
+    const newValue = !autoPlayTTS;
+    setAutoPlayTTS(newValue);
+    
+    try {
+      await updateSettings({
+        auto_play_tts: newValue,
+      });
+    } catch (error) {
+      console.error('Failed to save auto-play setting:', error);
+      setAutoPlayTTS(!newValue);
+    }
+  };
+
+  // 打开设置页面
+  const handleOpenSettings = () => {
+    // 触发导航到设置页面
+    window.dispatchEvent(new CustomEvent('navigate-to-settings'));
+  };
 
   // 自动滚动到底部
   useEffect(() => {
@@ -140,10 +178,10 @@ export const ChatPage: React.FC<ChatPageProps> = ({
     try {
       // 清理 markdown 格式
       const plainText = text
-        .replace(/\*\*/g, '')  // 移除粗体
-        .replace(/\*/g, '')    // 移除斜体
-        .replace(/#/g, '')     // 移除标题
-        .replace(/`/g, '')     // 移除代码标记
+        .replace(/\*\*/g, '')
+        .replace(/\*/g, '')
+        .replace(/#/g, '')
+        .replace(/`/g, '')
         .trim();
       
       console.log('=== Playing TTS ===');
@@ -204,9 +242,15 @@ export const ChatPage: React.FC<ChatPageProps> = ({
 
   const handleRecordingEnd = (text: string) => {
     setInputText(text);
-    // 可选: 自动发送
-    // handleSendMessage();
   };
+
+  if (loadingSettings) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-gray-500">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -227,7 +271,7 @@ export const ChatPage: React.FC<ChatPageProps> = ({
           <div className="flex items-center gap-2">
             {/* 自动播放开关 */}
             <button
-              onClick={() => setAutoPlayTTS(!autoPlayTTS)}
+              onClick={toggleAutoPlay}
               className={`p-2 rounded-full transition-colors ${
                 autoPlayTTS ? 'bg-primary-100 text-primary-600' : 'hover:bg-gray-100 text-gray-600'
               }`}
@@ -235,7 +279,11 @@ export const ChatPage: React.FC<ChatPageProps> = ({
             >
               <Volume2 className="w-5 h-5" />
             </button>
-            <button className="p-2 hover:bg-primary-100 rounded-full transition-colors">
+            <button 
+              onClick={handleOpenSettings}
+              className="p-2 hover:bg-primary-100 rounded-full transition-colors"
+              title="Settings"
+            >
               <Settings className="w-5 h-5 text-gray-600" />
             </button>
           </div>

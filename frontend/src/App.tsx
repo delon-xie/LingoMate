@@ -3,9 +3,11 @@ import type { Scenario } from './types';
 import { ScenarioSelection } from './pages/ScenarioSelection';
 import { ChatPage } from './pages/ChatPage';
 import { VocabularyPage } from './pages/VocabularyPage';
+import { SettingsPage } from './pages/SettingsPage';
+import { ProfilePage } from './pages/ProfilePage';
 import { isTauri } from './services/api';
 
-type Page = 'scenario' | 'chat' | 'vocabulary';
+type Page = 'scenario' | 'chat' | 'vocabulary' | 'settings' | 'profile';
 
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>('scenario');
@@ -29,6 +31,19 @@ function App() {
     } else {
       console.log('✓ LingoMate running in Tauri environment');
     }
+  }, []);
+
+  // 监听导航到设置页面的事件
+  useEffect(() => {
+    const handleNavigateToSettings = () => {
+      setCurrentPage('settings');
+    };
+
+    window.addEventListener('navigate-to-settings', handleNavigateToSettings);
+
+    return () => {
+      window.removeEventListener('navigate-to-settings', handleNavigateToSettings);
+    };
   }, []);
 
   const handleScenarioSelect = async (scenario: Scenario, sessionId: number, greeting: string) => {
@@ -62,6 +77,8 @@ function App() {
           userNickname="Learner"
           proficiencyLevel="intermediate"
           onScenarioSelect={handleScenarioSelect}
+          onSettingsClick={() => setCurrentPage('settings')}
+          onProfileClick={() => setCurrentPage('profile')}
         />
       )}
 
@@ -76,6 +93,14 @@ function App() {
 
       {currentPage === 'vocabulary' && (
         <VocabularyPage onBack={handleBackToScenarios} />
+      )}
+
+      {currentPage === 'settings' && (
+        <SettingsPage onBack={handleBackToScenarios} />
+      )}
+
+      {currentPage === 'profile' && (
+        <ProfilePage onBack={handleBackToScenarios} />
       )}
     </div>
   );

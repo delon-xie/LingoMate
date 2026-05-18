@@ -40,6 +40,10 @@ export interface AppSettings {
   speech_volume: number;
   show_grammar_hints: boolean;
   network_status: 'online' | 'offline';
+  user_nickname?: string;
+  user_level?: string;
+  theme?: string;
+  auto_play_tts?: boolean;
 }
 
 // 情景模式 - 扩展到24个典型场景

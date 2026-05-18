@@ -173,6 +173,20 @@ cd .. && npm run tauri:dev
 - [✅] AI 生成个性化开场白
 - [✅] 动态场景扩展（无数据库限制）
 
+## 屏幕截图
+
+### 情景选择页面
+![Scenario Selection](doc/screen_image/scenario_screen.png)
+
+### 对话页面
+![Chat Page](doc/screen_image/chat_page.png)
+
+### 设置页面
+![Settings Page](doc/screen_image/setting_page.png)
+
+### 个人资料页面
+![Profile Page](doc/screen_image/profile_page.png)
+
 ### API 命令
 
 | 命令 | 描述 |

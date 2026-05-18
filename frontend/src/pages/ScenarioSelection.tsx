@@ -8,6 +8,8 @@ interface ScenarioSelectionProps {
   userNickname?: string;
   proficiencyLevel?: ProficiencyLevel;
   onScenarioSelect: (scenario: Scenario, sessionId: number, greeting: string) => void;
+  onSettingsClick?: () => void;
+  onProfileClick?: () => void;
 }
 
 const scenarios: Scenario[] = [
@@ -56,6 +58,8 @@ export const ScenarioSelection: React.FC<ScenarioSelectionProps> = ({
   userNickname = 'Learner',
   proficiencyLevel = 'intermediate',
   onScenarioSelect,
+  onSettingsClick,
+  onProfileClick,
 }) => {
   const handleScenarioClick = async (scenario: Scenario) => {
     console.log('=== Scenario Card Clicked ===');
@@ -94,10 +98,18 @@ export const ScenarioSelection: React.FC<ScenarioSelectionProps> = ({
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <h1 className="text-2xl font-bold text-primary-600">LingoMate</h1>
           <div className="flex items-center gap-4">
-            <button className="p-2 hover:bg-primary-100 rounded-full transition-colors">
+            <button 
+              onClick={onSettingsClick}
+              className="p-2 hover:bg-primary-100 rounded-full transition-colors"
+              title="Settings"
+            >
               <Settings className="w-5 h-5 text-gray-600" />
             </button>
-            <button className="p-2 hover:bg-primary-100 rounded-full transition-colors">
+            <button 
+              onClick={onProfileClick}
+              className="p-2 hover:bg-primary-100 rounded-full transition-colors"
+              title="Profile"
+            >
               <User className="w-5 h-5 text-gray-600" />
             </button>
           </div>
@@ -123,7 +135,7 @@ export const ScenarioSelection: React.FC<ScenarioSelectionProps> = ({
                 <span className="w-2 h-2 bg-primary-500 rounded-full"></span>
                 {category.name}
               </h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 {category.scenarios.map((scenario) => (
                   <ScenarioCard
                     key={scenario}

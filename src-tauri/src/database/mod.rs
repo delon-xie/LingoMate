@@ -192,6 +192,7 @@ fn run_migrations(conn: &Connection) -> Result<()> {
             ('speech_speed', '1.0', 'number', '语速: 0.5-2.0'),
             ('speech_volume', '1.0', 'number', '音量: 0.0-1.0'),
             ('show_grammar_hints', 'true', 'boolean', '是否显示语法提示'),
+            ('auto_play_tts', 'true', 'boolean', '是否自动播放 TTS'),
             ('user_nickname', '', 'string', '用户昵称'),
             ('user_level', 'intermediate', 'string', '用户英语水平'),
             ('theme', 'light', 'string', '主题: light 或 dark');

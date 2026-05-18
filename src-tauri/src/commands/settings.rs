@@ -14,6 +14,10 @@ pub struct AppSettings {
     pub speech_volume: f64,
     pub show_grammar_hints: bool,
     pub network_status: String,
+    pub user_nickname: String,
+    pub user_level: String,
+    pub theme: String,
+    pub auto_play_tts: bool,
 }
 
 impl Default for AppSettings {
@@ -27,6 +31,10 @@ impl Default for AppSettings {
             speech_volume: 1.0,
             show_grammar_hints: true,
             network_status: "online".to_string(),
+            user_nickname: "".to_string(),
+            user_level: "intermediate".to_string(),
+            theme: "light".to_string(),
+            auto_play_tts: true,
         }
     }
 }
@@ -60,6 +68,10 @@ pub async fn get_settings(
         speech_volume: settings_json["speech_volume"].as_f64().unwrap_or(1.0),
         show_grammar_hints: settings_json["show_grammar_hints"].as_bool().unwrap_or(true),
         network_status: settings_json["network_status"].as_str().unwrap_or("online").to_string(),
+        user_nickname: settings_json["user_nickname"].as_str().unwrap_or("").to_string(),
+        user_level: settings_json["user_level"].as_str().unwrap_or("intermediate").to_string(),
+        theme: settings_json["theme"].as_str().unwrap_or("light").to_string(),
+        auto_play_tts: settings_json["auto_play_tts"].as_bool().unwrap_or(true),
     };
 
     Ok(GetSettingsResult {

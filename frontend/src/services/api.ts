@@ -112,40 +112,52 @@ export async function stopAudio() {
 
 export async function getSessions(limit = 50, offset = 0) {
   return invoke<{ sessions: Session[]; total: number }>('get_sessions', {
-    limit,
-    offset,
+    params: {
+      limit,
+      offset,
+    }
   });
 }
 
 export async function getMessages(sessionId: number) {
   return invoke<{ messages: Message[] }>('get_messages', {
-    session_id: sessionId,
+    params: {
+      session_id: sessionId,
+    }
   });
 }
 
 export async function getVocabulary(sortBy = 'first_learned', order = 'desc') {
   return invoke<{ vocabulary: VocabularyItem[] }>('get_vocabulary', {
-    sort_by: sortBy,
-    order,
+    params: {
+      sort_by: sortBy,
+      order,
+    }
   });
 }
 
 export async function deleteSession(sessionId: number) {
   return invoke<{ success: boolean }>('delete_session', {
-    session_id: sessionId,
+    params: {
+      session_id: sessionId,
+    }
   });
 }
 
 export async function getVocabularyDetail(word: string) {
   return invoke<{ vocabulary: VocabularyItem | null }>('get_vocabulary_detail', {
-    word,
+    params: {
+      word,
+    }
   });
 }
 
 export async function updateVocabularyReview(wordId: number, masteryLevel: number) {
   return invoke<{ success: boolean }>('update_vocabulary_review', {
-    word_id: wordId,
-    mastery_level: masteryLevel,
+    params: {
+      word_id: wordId,
+      mastery_level: masteryLevel,
+    }
   });
 }
 
@@ -156,11 +168,19 @@ export async function getSettings() {
 }
 
 export async function updateSettings(settings: Partial<AppSettings>) {
-  return invoke<{ success: boolean }>('update_settings', { settings });
+  return invoke<{ success: boolean }>('update_settings', {
+    params: {
+      settings,
+    }
+  });
 }
 
 export async function switchAiModel(model: string) {
-  return invoke<{ success: boolean }>('switch_ai_model', { model });
+  return invoke<{ success: boolean }>('switch_ai_model', {
+    params: {
+      model,
+    }
+  });
 }
 
 // ============ 系统管理 ============
@@ -179,9 +199,11 @@ export async function exportData(
   includeVocabulary: boolean
 ) {
   return invoke<{ success: boolean; file_path?: string }>('export_data', {
-    format,
-    include_sessions: includeSessions,
-    include_vocabulary: includeVocabulary,
+    params: {
+      format,
+      include_sessions: includeSessions,
+      include_vocabulary: includeVocabulary,
+    }
   });
 }
 
