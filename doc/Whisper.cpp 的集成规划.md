@@ -1,4 +1,4 @@
-# TODO: 集成 Whisper.cpp 进行离线语音识别
+# 集成 Whisper.cpp 进行离线语音识别
 
 ## 当前问题
 - macOS Speech Framework 返回 "Retry" 错误 (code=203)
