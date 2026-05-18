@@ -120,6 +120,10 @@ source $HOME/.cargo/env
 rustc --version
 cargo --version
 
+#清理target缓存，如有必要
+cargo clean
+cd ..
+
 # 启动 Tauri 开发模式（同时启动前端和后端）
 npm run tauri:dev
 
@@ -153,16 +157,16 @@ cd .. && npm run tauri:dev
 
 ### MVP 功能清单
 
-- [x] 情景选择页面 (24个场景，支持自定义扩展)
-- [x] 聊天对话界面
-- [x] 流式 AI 回复
-- [x] 单词"即点即学"
-- [ ] 语音输入 (STT) - Whisper.cpp 集成中，暂用键盘输入
-- [x] 语音输出 (TTS) - Edge TTS + System TTS 双引擎
-- [x] 生词本管理
-- [x] 对话历史记录
-- [x] AI 生成个性化开场白
-- [x] 动态场景扩展（无数据库限制）
+- [✅] 情景选择页面 (24个场景，支持自定义扩展)
+- [✅] 聊天对话界面
+- [✅] 流式 AI 回复
+- [✅] 单词"即点即学"
+- [✅] 语音输入 (STT) - Whisper.cpp 已集成，支持离线语音识别
+- [✅] 语音输出 (TTS) - Edge TTS + System TTS 双引擎
+- [✅] 生词本管理
+- [✅] 对话历史记录
+- [✅] AI 生成个性化开场白
+- [✅] 动态场景扩展（无数据库限制）
 
 ### API 命令
 

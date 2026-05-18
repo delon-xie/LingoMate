@@ -1,0 +1,24 @@
+{
+  "name": "lingomate",
+  "version": "0.1.0",
+  "private": true,
+  "description": "LingoMate - AI English Tutor Desktop App",
+  "scripts": {
+    "dev": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "preview": "cd frontend && npm run preview",
+    "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build"
+  },
+  "workspaces": [
+    "frontend"
+  ],
+  "dependencies": {
+    "@tauri-apps/api": "^2.11.0",
+    "@tauri-apps/plugin-shell": "^2.3.5"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.11.2"
+  }
+}
