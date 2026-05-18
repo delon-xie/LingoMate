@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+/* LingoMate 黄色系主题 */
+@theme {
+  /* 主色系 - 黄色 */
+  --color-primary-50: #FFFBEB;
+  --color-primary-100: #FEF3C7;
+  --color-primary-200: #FDE68A;
+  --color-primary-300: #FCD34D;
+  --color-primary-400: #FBBF24;
+  --color-primary-500: #F59E0B;
+  --color-primary-600: #D97706;
+  --color-primary-700: #B45309;
+  --color-primary-800: #92400E;
+  --color-primary-900: #78350F;
+
+  /* 语义化颜色映射 */
+  --color-accent: var(--color-primary-500);
+  --color-accent-light: var(--color-primary-400);
+  --color-accent-dark: var(--color-primary-600);
+  --color-hover: var(--color-primary-100);
+  --color-selection: var(--color-primary-200);
+
+  /* 背景色 */
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #FAFAFA;
+  --color-bg-tertiary: #F5F5F5;
+
+  /* 文本色 */
+  --color-text-primary: #1F2937;
+  --color-text-secondary: #6B7280;
+  --color-text-muted: #9CA3AF;
+  --color-text-inverse: #FFFFFF;
+
+  /* 边框色 */
+  --color-border-light: #E5E7EB;
+  --color-border-medium: #D1D5DB;
+  --color-border-focus: var(--color-primary-400);
+
+  /* 功能色 */
+  --color-success-light: #D1FAE5;
+  --color-success-main: #10B981;
+  --color-success-dark: #059669;
+  --color-warning-light: #FEF3C7;
+  --color-warning-main: #F59E0B;
+  --color-warning-dark: #D97706;
+  --color-error-light: #FEE2E2;
+  --color-error-main: #EF4444;
+  --color-error-dark: #DC2626;
+  --color-info-light: #DBEAFE;
+  --color-info-main: #3B82F6;
+  --color-info-dark: #2563EB;
+
+  /* 圆角 */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* 阴影 */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-accent: 0 4px 12px rgba(245, 158, 11, 0.25);
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+
+/* 录音按钮脉冲动画 */
+@keyframes recording-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+}
+
+.recording-animation {
+  animation: recording-pulse 1.5s ease-in-out infinite;
+}
+
+/* 平滑过渡 */
+.smooth-transition {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}

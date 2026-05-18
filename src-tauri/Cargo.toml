@@ -1,0 +1,38 @@
+[package]
+name = "lingomate"
+version = "0.1.0"
+description = "LingoMate - AI English Tutor Desktop App"
+authors = ["LingoMate Team"]
+edition = "2021"
+
+[lib]
+name = "lingomate_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.0", features = [] }
+cc = "1.0"  # 用于编译 C/Objective-C 代码
+
+[dependencies]
+tauri = { version = "2.0", features = [] }
+tauri-plugin-shell = "2.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1", features = ["full"] }
+reqwest = { version = "0.11", features = ["json", "stream"] }
+rusqlite = { version = "0.31", features = ["bundled"] }
+chrono = { version = "0.4", features = ["serde"] }
+thiserror = "1.0"
+log = "0.4"
+env_logger = "0.11"
+futures-util = "0.3"
+tokio-stream = "0.1"
+cpal = "0.15"  # 跨平台音频录制
+rodio = "0.17"  # 音频播放
+hound = "3.5"  # WAV文件处理
+tempfile = "3.8"  # 临时文件处理
+whisper-rs = "0.10"  # Rust binding for whisper.cpp
+
+[target.'cfg(target_os = "macos")'.dependencies]
+objc = "0.2"
+objc-foundation = "0.1"
